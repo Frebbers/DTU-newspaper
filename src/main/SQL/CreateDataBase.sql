@@ -18,7 +18,7 @@ CREATE TABLE owns
 CREATE TABLE Edition (
     Release_date date PRIMARY KEY,
     Editor_ID smallint NOT NULL,
-    FOREIGN KEY (Editor_ID) REFERENCES Editor(Editor_ID)
+    FOREIGN KEY (Editor_ID) REFERENCES Worker(Worker_ID)
 );
 CREATE TABLE Address (
     address_id INT PRIMARY KEY,
