@@ -11,12 +11,12 @@ CREATE TABLE owns{
     Release date,
     FOREIGN KEY (Title) REFERENCES Newspaper(Title),
     FOREIGN KEY (Release) REFERENCES Edition(Release),
+    PRIMARY KEY (Title, Release)
 }
 
 CREATE TABLE Edition (
     Release date PRIMARY KEY,
     Editor_ID SMALLINT FOREIGN KEY REFERENCES Editor(ID)
-
 )
 
 CREATE TABLE Address (
