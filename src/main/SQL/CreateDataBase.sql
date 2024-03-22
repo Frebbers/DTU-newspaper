@@ -37,17 +37,17 @@ CREATE TABLE Journalist (
     Address_ID smallint not null,
     FOREIGN KEY (Address_ID) REFERENCES Address(address_id)
 );
-CREATE TABLE Editor(
-    Editor_ID smallint PRIMARY KEY,
-    FOREIGN KEY (Editor_ID) REFERENCES Journalist(CPR_NUMBER)
+CREATE TABLE Worker(
+    Worker_ID smallint PRIMARY KEY,
+    FOREIGN KEY (Worker_ID) REFERENCES Journalist(CPR_NUMBER),
+    is_editor BOOLEAN,
+    is_reporter BOOLEAN,
+    is_photographer BOOLEAN
 );
-CREATE TABLE Reporter(
-    Reporter_ID smallint PRIMARY KEY,
-    FOREIGN KEY (Reporter_ID) REFERENCES Journalist(CPR_NUMBER)
-);
+
 CREATE TABLE Image (
     img_id INT PRIMARY KEY,
     date_taken DATE NOT NULL,
     reporter_id INT NOT NULL,
-    FOREIGN KEY (reporter_id) REFERENCES Journalist(CPR_NUMBER)
+    FOREIGN KEY (reporter_id) REFERENCES Worker(Worker_ID)
 );
