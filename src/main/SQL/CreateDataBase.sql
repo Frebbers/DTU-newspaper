@@ -51,3 +51,11 @@ CREATE TABLE Image (
     reporter_id INT NOT NULL,
     FOREIGN KEY (reporter_id) REFERENCES Journalist(CPR_NUMBER)
 );
+CREATE TABLE Article (
+    Article_id   INT PRIMARY KEY,
+    Release_Date DATE NOT NULL,
+    Author_id  INT NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    View_Count   INT DEFAULT 0
+);
+
