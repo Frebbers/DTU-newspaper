@@ -5,14 +5,15 @@ CREATE TABLE Newspaper(
     Title varchar(255) PRIMARY KEY,
     Founding_date date NOT NULL,
     Periodicity smallint
-)
-CREATE TABLE owns{
+);
+CREATE TABLE owns
+(
     Title varchar(255),
-    Release date,
-    FOREIGN KEY (Title) REFERENCES Newspaper(Title),
-    FOREIGN KEY (Release) REFERENCES Edition(Release),
-    PRIMARY KEY (Title, Release)
-}
+    Release_date date,
+    FOREIGN KEY (Title) REFERENCES Newspaper (Title),
+    FOREIGN KEY (Release_date) REFERENCES Edition (Release_date),
+    PRIMARY KEY (Title, Release_date)
+);
 
 CREATE TABLE Edition (
     Release_date date PRIMARY KEY,
