@@ -6,13 +6,11 @@ CREATE TABLE Newspaper(
     Founding_date date NOT NULL,
     Periodicity smallint
 );
-
 CREATE TABLE Edition (
     Release_date date PRIMARY KEY,
     Editor_ID smallint NOT NULL,
     FOREIGN KEY (Editor_ID) REFERENCES Editor(Editor_ID)
 );
-
 CREATE TABLE Address (
     address_id INT PRIMARY KEY,
     street_name VARCHAR(255),
@@ -30,7 +28,6 @@ CREATE TABLE Journalist (
     Address_ID smallint not null,
     FOREIGN KEY (Address_ID) REFERENCES Address(address_id)
 );
-
 CREATE TABLE Editor(
     Editor_ID smallint PRIMARY KEY,
     FOREIGN KEY (Editor_ID) REFERENCES Journalist(CPR_NUMBER)
@@ -39,11 +36,9 @@ CREATE TABLE Reporter(
     Reporter_ID smallint PRIMARY KEY,
     FOREIGN KEY (Reporter_ID) REFERENCES Journalist(CPR_NUMBER)
 );
-
-
 CREATE TABLE Image (
     img_id INT PRIMARY KEY,
     date_taken DATE NOT NULL,
     reporter_id INT NOT NULL,
-    FOREIGN KEY (reporter_id) REFERENCES Journalist(CPR)
-)
+    FOREIGN KEY (reporter_id) REFERENCES Journalist(CPR_NUMBER)
+);
