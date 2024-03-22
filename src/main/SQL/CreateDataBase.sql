@@ -34,7 +34,12 @@ CREATE TABLE Journalist (
 CREATE TABLE Editor(
     Editor_ID smallint PRIMARY KEY,
     FOREIGN KEY (Editor_ID) REFERENCES Journalist(CPR_NUMBER)
-)
+);
+CREATE TABLE Reporter(
+    Reporter_ID smallint PRIMARY KEY,
+    FOREIGN KEY (Reporter_ID) REFERENCES Journalist(CPR_NUMBER)
+);
+
 
 CREATE TABLE Image (
     img_id INT PRIMARY KEY,
