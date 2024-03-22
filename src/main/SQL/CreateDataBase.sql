@@ -29,3 +29,9 @@ CREATE TABLE Journalist (
     FOREIGN KEY (address_id) REFERENCES Address(address_id)
 )
 
+CREATE TABLE Image (
+    img_id INT PRIMARY KEY,
+    date_taken DATE NOT NULL,
+    reporter_id INT NOT NULL,
+    FOREIGN KEY (reporter_id) REFERENCES Journalist(CPR)
+)
