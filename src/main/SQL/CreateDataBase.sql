@@ -25,14 +25,14 @@ CREATE TABLE Edition
     Release_date    DATE NOT NULL,
     Editor_ID       INT NOT NULL,
     FOREIGN KEY (Newspaper_Title) REFERENCES Newspaper (Title),
-    FOREIGN KEY (Editor_ID) REFERENCES Editor (Editor_ID)
+    FOREIGN KEY (Editor_ID) REFERENCES Journalist (CPR_NUMBER)
 );
 CREATE TABLE Image
 (
     img_id      INT PRIMARY KEY,
     date_taken  DATE NOT NULL,
     reporter_id INT  NOT NULL,
-    FOREIGN KEY (reporter_id) REFERENCES Reporter (reporter_id)
+    FOREIGN KEY (reporter_id) REFERENCES Journalist (CPR_NUMBER)
 );
 
 CREATE TABLE Journalist
@@ -68,21 +68,31 @@ CREATE TABLE Article
     Release_Date DATE         NOT NULL,
     Author_id    INT          NOT NULL,
     Title        VARCHAR(255) NOT NULL,
-    View_Count   INT DEFAULT 0
+    View_Count   INT DEFAULT 0,
+    FOREIGN KEY (Author_id) REFERENCES Journalist (CPR_NUMBER)
 );
 
-CREATE TABLE Editor
+CREATE TABLE ArticlePhotos
 (
-    Editor_ID  INT PRIMARY KEY,
-    FOREIGN KEY (Editor_ID) REFERENCES Journalist (CPR_NUMBER),
-    Edition_ID INT NOT NULL,
-    FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
+    Article_id INT,
+    img_id     INT,
+    PRIMARY KEY (Article_id, img_id),
+    FOREIGN KEY (Article_id) REFERENCES Article (Article_id),
+    FOREIGN KEY (img_id) REFERENCES Image (img_id)
 );
 
-CREATE TABLE Reporter
-(
-    Reporter_ID INT PRIMARY KEY,
-    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
-    Edition_ID  INT NOT NULL,
-    FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
-);
+-- CREATE TABLE Editor
+--    (
+--    Editor_ID  INT PRIMARY KEY,
+--    FOREIGN KEY (Editor_ID) REFERENCES Journalist (CPR_NUMBER),
+--    Edition_ID INT NOT NULL,
+--    FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
+-- );
+
+-- CREATE TABLE Reporter
+-- (
+--    Reporter_ID INT PRIMARY KEY,
+--    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
+--    Edition_ID  INT NOT NULL,
+ --   FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
+-- );
