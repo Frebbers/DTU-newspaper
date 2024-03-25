@@ -69,6 +69,5 @@ CREATE TABLE Article
     Release_Date DATE         NOT NULL,
     Author_id    INT          NOT NULL,
     Title        VARCHAR(255) NOT NULL,
-    View_Count   INT DEFAULT 0,
-    FOREIGN KEY (Author_id) REFERENCES Worker (Worker_ID)
+    View_Count   INT DEFAULT 0
 );
