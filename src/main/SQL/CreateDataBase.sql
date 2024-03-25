@@ -12,26 +12,6 @@ CREATE TABLE Address
     country      VARCHAR(100)
 );
 
-CREATE TABLE Journalist
-(
-    CPR_NUMBER    INT PRIMARY KEY,
-    First_name    VARCHAR(255) NOT NULL,
-    Last_name     VARCHAR(255) NOT NULL,
-    Phone_numbers VARCHAR(15)  NOT NULL,
-    Email_address VARCHAR(255) NOT NULL,
-    Address_ID    INT          NOT NULL,
-    FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
-);
-
-CREATE TABLE Worker
-(
-    Worker_ID       INT PRIMARY KEY,
-    FOREIGN KEY (Worker_ID) REFERENCES Journalist (CPR_NUMBER),
-    is_editor       BOOLEAN,
-    is_reporter     BOOLEAN,
-    is_photographer BOOLEAN
-);
-
 CREATE TABLE Newspaper
 (
     Title         VARCHAR(255) PRIMARY KEY,
@@ -61,6 +41,26 @@ CREATE TABLE Image
     date_taken  DATE NOT NULL,
     reporter_id INT  NOT NULL,
     FOREIGN KEY (reporter_id) REFERENCES Worker (Worker_ID)
+);
+
+CREATE TABLE Journalist
+(
+    CPR_NUMBER    INT PRIMARY KEY,
+    First_name    VARCHAR(255) NOT NULL,
+    Last_name     VARCHAR(255) NOT NULL,
+    Phone_numbers VARCHAR(15)  NOT NULL,
+    Email_address VARCHAR(255) NOT NULL,
+    Address_ID    INT          NOT NULL,
+    FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
+);
+
+CREATE TABLE Writes (
+    journalist_id VARCHAR(20),
+    article_id INT,
+    Role VARCHAR(20),
+    PRIMARY KEY (journalist_id, article_id),
+    FOREIGN KEY (journalist_id) REFERENCES Journalist (CPR_NUMBER),
+    FOREIGN KEY (article_id) REFERENCES Article (Article_id)
 );
 
 CREATE TABLE Article
