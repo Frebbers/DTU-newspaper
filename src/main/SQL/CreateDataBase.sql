@@ -40,10 +40,17 @@ CREATE TABLE Journalist
     CPR_NUMBER    INT PRIMARY KEY,
     First_name    VARCHAR(255) NOT NULL,
     Last_name     VARCHAR(255) NOT NULL,
-    Phone_numbers VARCHAR(15)  NOT NULL,
+    Primary_phone VARCHAR(15)  NOT NULL,
     Email_address VARCHAR(255) NOT NULL,
     Address_ID    INT          NOT NULL,
+    FOREIGN KEY (Primary_phone) REFERENCES JournalistPhoneNumbers (Phone_number),
     FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
+);
+CREATE TABLE JournalistPhoneNumbers
+(
+    Phone_number VARCHAR(15) primary key,
+    CPR_NUMBER INT NOT NULL,
+    FOREIGN KEY (CPR_NUMBER) REFERENCES Journalist(CPR_NUMBER)
 );
 
 CREATE TABLE Writes (
