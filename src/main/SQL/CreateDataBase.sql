@@ -27,9 +27,11 @@ CREATE TABLE Worker
 (
     Worker_ID       INT PRIMARY KEY,
     FOREIGN KEY (Worker_ID) REFERENCES Journalist (CPR_NUMBER),
+    Article_id      INT,
+    FOREIGN KEY (Article_id) REFERENCES Article (Article_id),
     is_editor       BOOLEAN,
     is_reporter     BOOLEAN,
-    is_photographer BOOLEAN
+    is_writer BOOLEAN
 );
 
 CREATE TABLE Newspaper
