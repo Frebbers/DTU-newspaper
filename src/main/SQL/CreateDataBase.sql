@@ -18,30 +18,21 @@ CREATE TABLE Newspaper
     Founding_date DATE NOT NULL,
     Periodicity   SMALLINT
 );
-
 CREATE TABLE Edition
 (
-    Release_date DATE PRIMARY KEY,
-    
-    Editor_ID    INT NOT NULL,
-    FOREIGN KEY (Editor_ID) REFERENCES Worker (Worker_ID)
+    Edition_ID      INT PRIMARY KEY,
+    Newspaper_Title VARCHAR(255),
+    Release_date    DATE NOT NULL,
+    Editor_ID       INT NOT NULL,
+    FOREIGN KEY (Newspaper_Title) REFERENCES Newspaper (Title),
+    FOREIGN KEY (Editor_ID) REFERENCES Editor (Editor_ID)
 );
-
-CREATE TABLE owns
-(
-    Title        VARCHAR(255),
-    Release_date DATE,
-    FOREIGN KEY (Title) REFERENCES Newspaper (Title),
-    FOREIGN KEY (Release_date) REFERENCES Edition (Release_date),
-    PRIMARY KEY (Title, Release_date)
-);
-
 CREATE TABLE Image
 (
     img_id      INT PRIMARY KEY,
     date_taken  DATE NOT NULL,
     reporter_id INT  NOT NULL,
-    FOREIGN KEY (reporter_id) REFERENCES Worker (Worker_ID)
+    FOREIGN KEY (reporter_id) REFERENCES Reporter (reporter_id)
 );
 
 CREATE TABLE Journalist
@@ -49,10 +40,17 @@ CREATE TABLE Journalist
     CPR_NUMBER    INT PRIMARY KEY,
     First_name    VARCHAR(255) NOT NULL,
     Last_name     VARCHAR(255) NOT NULL,
-    Phone_numbers VARCHAR(15)  NOT NULL,
+    Primary_phone VARCHAR(15)  NOT NULL,
     Email_address VARCHAR(255) NOT NULL,
     Address_ID    INT          NOT NULL,
+    FOREIGN KEY (Primary_phone) REFERENCES JournalistPhoneNumbers (Phone_number),
     FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
+);
+CREATE TABLE JournalistPhoneNumbers
+(
+    Phone_number VARCHAR(15) primary key,
+    CPR_NUMBER INT NOT NULL,
+    FOREIGN KEY (CPR_NUMBER) REFERENCES Journalist(CPR_NUMBER)
 );
 
 CREATE TABLE Writes (
@@ -71,4 +69,20 @@ CREATE TABLE Article
     Author_id    INT          NOT NULL,
     Title        VARCHAR(255) NOT NULL,
     View_Count   INT DEFAULT 0
+);
+
+CREATE TABLE Editor
+(
+    Editor_ID  INT PRIMARY KEY,
+    FOREIGN KEY (Editor_ID) REFERENCES Journalist (CPR_NUMBER),
+    Edition_ID INT NOT NULL,
+    FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
+);
+
+CREATE TABLE Reporter
+(
+    Reporter_ID INT PRIMARY KEY,
+    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
+    Edition_ID  INT NOT NULL,
+    FOREIGN KEY (Edition_ID) REFERENCES Edition (Edition_ID)
 );
