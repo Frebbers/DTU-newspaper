@@ -64,6 +64,7 @@ INSERT INTO Reporter(Reporter_ID, Image_ID) VALUES
 
 INSERT INTO Writes(journalist_id, article_id, Role) VALUES
 (1, 1, 'Author'),
+(1, 2, 'Advisor'),
 (2, 2, 'Author'),
 (3, 3, 'Author'),
 (4, 4, 'Author'),
