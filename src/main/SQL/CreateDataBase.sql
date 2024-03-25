@@ -22,6 +22,7 @@ CREATE TABLE Newspaper
 CREATE TABLE Edition
 (
     Release_date DATE PRIMARY KEY,
+    
     Editor_ID    INT NOT NULL,
     FOREIGN KEY (Editor_ID) REFERENCES Worker (Worker_ID)
 );
