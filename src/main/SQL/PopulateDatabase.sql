@@ -1,60 +1,52 @@
-USE DKAvisen;
-
+USE dkavisen;
 INSERT INTO Address(address_id, street_name, civic_number, city, zip_code, country) VALUES
-(1, 'Street 1', '1', 'City 1', 'Zip 1', 'Country 1'),
-(2, 'Street 2', '2', 'City 2', 'Zip 2', 'Country 2'),
-(3, 'Street 3', '3', 'City 3', 'Zip 3', 'Country 3'),
-(4, 'Street 4', '4', 'City 4', 'Zip 4', 'Country 4'),
-(5, 'Street 5', '5', 'City 5', 'Zip 5', 'Country 5');
+(1, 'Baker Street', '221B', 'London', 'NW1 6XE', 'United Kingdom'),
+(2, 'Fifth Avenue', '350', 'New York', '10018', 'United States'),
+(3, 'Champs-Élysées', '70', 'Paris', '75008', 'France'),
+(4, 'Via Condotti', '56', 'Rome', '00187', 'Italy'),
+(5, 'Bahnhofstrasse', '30', 'Zurich', '8001', 'Switzerland');
 
 INSERT INTO Newspaper(Title, Founding_date, Periodicity) VALUES
-('Newspaper 1', '2022-01-01', 1),
-('Newspaper 2', '2022-02-01', 2),
-('Newspaper 3', '2022-03-01', 3),
-('Newspaper 4', '2022-04-01', 4),
-('Newspaper 5', '2022-05-01', 5);
+('The Times', '1785-01-01', 1),
+('The New York Times', '1851-09-18', 1),
+('Le Monde', '1944-12-19', 1),
+('La Repubblica', '1976-01-14', 1),
+('Neue Zürcher Zeitung', '1780-01-12', 1);
 
-INSERT INTO Edition(Edition_ID, Newspaper_Title, Release_date, Editor_ID) VALUES
-(1, 'Newspaper 1', '2022-01-02', 1),
-(2, 'Newspaper 2', '2022-02-02', 2),
-(3, 'Newspaper 3', '2022-03-02', 3),
-(4, 'Newspaper 4', '2022-04-02', 4),
-(5, 'Newspaper 5', '2022-05-02', 5);
+INSERT INTO Edition(Edition_ID, Newspaper_Title, Release_date) VALUES
+(1, 'The Times', '2023-01-01'),
+(2, 'The New York Times', '2023-01-02'),
+(3, 'Le Monde', '2023-01-03'),
+(4, 'La Repubblica', '2023-01-04'),
+(5, 'Neue Zürcher Zeitung', '2023-01-05');
 
-INSERT INTO Image(img_id, date_taken, reporter_id) VALUES
-(1, '2022-01-03', 1),
-(2, '2022-02-03', 2),
-(3, '2022-03-03', 3),
-(4, '2022-04-03', 4),
-(5, '2022-05-03', 5);
+INSERT INTO Image(ID, Date_Taken, Reporter_id) VALUES
+(1, '2023-01-01', 1),
+(2, '2023-01-02', 2),
+(3, '2023-01-03', 3),
+(4, '2023-01-04', 4),
+(5, '2023-01-05', 5);
 
-INSERT INTO Journalist(CPR_NUMBER, First_name, Last_name, Primary_phone, Email_address, Address_ID) VALUES
-(1, 'First 1', 'Last 1', 'Phone 1', 'Email 1', 1),
-(2, 'First 2', 'Last 2', 'Phone 2', 'Email 2', 2),
-(3, 'First 3', 'Last 3', 'Phone 3', 'Email 3', 3),
-(4, 'First 4', 'Last 4', 'Phone 4', 'Email 4', 4),
-(5, 'First 5', 'Last 5', 'Phone 5', 'Email 5', 5);
+INSERT INTO Journalist(CPR_NUMBER, First_name, Last_name, Email_address, Address_ID) VALUES
+(1, 'John', 'Doe', 'john.doe@example.com', 1),
+(2, 'Jane', 'Doe', 'jane.doe@example.com', 2),
+(3, 'Jim', 'Smith', 'jim.smith@example.com', 3),
+(4, 'Jill', 'Johnson', 'jill.johnson@example.com', 4),
+(5, 'Jack', 'Brown', 'jack.brown@example.com', 5);
 
 INSERT INTO JournalistPhoneNumbers(Phone_number, CPR_NUMBER) VALUES
-('Phone 1', 1),
-('Phone 2', 2),
-('Phone 3', 3),
-('Phone 4', 4),
-('Phone 5', 5);
+('+44 20 1234 5678', 1),
+('+1 212 123 4567', 2),
+('+33 1 23 45 67 89', 3),
+('+39 06 1234 5678', 4),
+('+41 44 123 45 67', 5);
 
-INSERT INTO Writes(journalist_id, article_id, Role) VALUES
-(1, 1, 'Role 1'),
-(2, 2, 'Role 2'),
-(3, 3, 'Role 3'),
-(4, 4, 'Role 4'),
-(5, 5, 'Role 5');
-
-INSERT INTO Article(Article_id, Release_Date, Author_id, Title, View_Count) VALUES
-(1, '2022-01-04', 1, 'Title 1', 1),
-(2, '2022-02-04', 2, 'Title 2', 2),
-(3, '2022-03-04', 3, 'Title 3', 3),
-(4, '2022-04-04', 4, 'Title 4', 4),
-(5, '2022-05-04', 5, 'Title 5', 5);
+INSERT INTO Article(ID, Release_Date, Title, View_Count) VALUES
+(1, '2023-01-06', 'Article 1', 100),
+(2, '2023-01-07', 'Article 2', 200),
+(3, '2023-01-08', 'Article 3', 300),
+(4, '2023-01-09', 'Article 4', 400),
+(5, '2023-01-10', 'Article 5', 500);
 
 INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (1, 1),
@@ -63,7 +55,21 @@ INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (4, 4),
 (5, 5);
 
-INSERT INTO Reporter(Reporter_ID, Edition_ID) VALUES
+INSERT INTO Reporter(Reporter_ID, Image_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+INSERT INTO Writes(journalist_id, article_id, Role) VALUES
+(1, 1, 'Author'),
+(2, 2, 'Author'),
+(3, 3, 'Author'),
+(4, 4, 'Author'),
+(5, 5, 'Author');
+
+INSERT INTO ArticlePhotos(Article_id, img_id) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
