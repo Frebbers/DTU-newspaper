@@ -22,7 +22,8 @@ CREATE TABLE Edition
 (
     Edition_ID      INT PRIMARY KEY,
     Newspaper_Title VARCHAR(255),
-    Release_date    DATE NOT NULL
+    Release_date    DATE NOT NULL,
+    FOREIGN KEY (Newspaper_Title) REFERENCES Newspaper(Title)
 );
 CREATE TABLE Image
 (
