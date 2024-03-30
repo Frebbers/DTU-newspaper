@@ -53,6 +53,7 @@ CREATE TABLE Article
     ID   INT PRIMARY KEY,
     Release_Date DATE         NOT NULL,
     Title        VARCHAR(255) NOT NULL,
+    Topic        VARCHAR(255) NOT NULL,
     View_Count   INT DEFAULT 0
 );
 

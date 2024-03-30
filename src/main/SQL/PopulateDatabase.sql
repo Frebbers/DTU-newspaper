@@ -41,12 +41,12 @@ INSERT INTO JournalistPhoneNumbers(Phone_number, CPR_NUMBER) VALUES
 ('+39 06 1234 5678', 4),
 ('+41 44 123 45 67', 5);
 
-INSERT INTO Article(ID, Release_Date, Title, View_Count) VALUES
-(1, '2023-01-06', 'Article 1', 100),
-(2, '2023-01-07', 'Article 2', 200),
-(3, '2023-01-08', 'Article 3', 300),
-(4, '2023-01-09', 'Article 4', 400),
-(5, '2023-01-10', 'Article 5', 500);
+INSERT INTO Article(ID, Release_Date, Title, Topic, View_Count) VALUES
+(1, '2023-01-06', 'Article 1', 'Crime', 100),
+(2, '2023-01-07', 'Article 2', 'Crime', 200),
+(3, '2023-01-08', 'Article 3', 'Gossip', 300),
+(4, '2023-01-09', 'Article 4', 'Politics', 400),
+(5, '2023-01-10', 'Article 5', 'Business',500);
 
 INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (1, 1),
