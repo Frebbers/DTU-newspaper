@@ -8,14 +8,27 @@ public class Loader  {
     DatabaseConnection dbConnection;
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
-        PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
-        String relativePath = "src/main/resources/uploads.csv";
-        System.out.println("loading from "+ relativePath);
-        String absolutePath = new File(relativePath).getAbsolutePath();
-        List<PhotoAndReporter> photosAndReporters = loader.loadPhotosAndReporters(absolutePath);
-        String[] imageInsertStatements = imageInsertBuilder(photosAndReporters);
+            Loader loader = new Loader();
+            PhotosAndReportersLoader PRLoader = new PhotosAndReportersLoader();
+            String relativePath = "src/main/resources/uploads.csv";
+            System.out.println("loading from "+ relativePath);
+            String absolutePath = new File(relativePath).getAbsolutePath();
+            List<PhotoAndReporter> photosAndReporters = PRLoader.loadPhotosAndReporters(absolutePath);
+            String[] imageInsertStatements = imageInsertBuilder(photosAndReporters);
+            String[] reporterInsertStatements = loader.reporterInsertBuilder(photosAndReporters);
+            loader.insertValues(reporterInsertStatements);
+            loader.insertValues(imageInsertStatements);
     } catch (IOException e) {
         e.printStackTrace();
+    }
+
+}
+private void insertValues(String[] insertStatements){
+    //Insert values into the database
+    for (String statement : insertStatements) {
+        if(!statement.isEmpty()){
+            dbConnection.executeStatement(statement);
+        }
     }
 }
 
