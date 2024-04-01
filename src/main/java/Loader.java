@@ -35,6 +35,29 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
         return insertStatements;
 }
 
+public String[] adressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+    PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
+        String[] insertStatements = new String[photosAndReporters.size()];
+        int i = 0;
+        for(PhotoAndReporter photoAndReporter : photosAndReporters) {
+            //INSERT photoAndReporter.getReporter() into the database
+            String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
+            String streetName = reporterInfo[3];
+            String civicNumber = reporterInfo[4];
+            String zipCode = reporterInfo[5];
+            String country = reporterInfo[6];
+            
+        if(!reporterExists(Integer.parseInt(cpr))){
+                insertStatements[i] = "INSERT INTO...";
+            } else {
+                insertStatements[i] = "";
+            }
+            i++;
+        }
+        return insertStatements;
+    }
+
+
 public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
@@ -58,9 +81,27 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
         }
         return insertStatements;
     }
+
+
+
 public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
     int count = dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?");
     return count > 0;
 }
+public boolean adressExists(int id){
+    //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
+int count = dbConnection.returnCountQuery("SELECT COUNT("+ id +") FROM USERS WHERE ID = ?");
+return count > 0;
+}
+
+public int adressIdGenerator(){
+    //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
+int id = dbConnection.returnCountQuery("SELECT COUNT(*) FROM adress")+1;
+while(adressExists(id)){
+    id++;
+}
+return id;
+}
+
 }
