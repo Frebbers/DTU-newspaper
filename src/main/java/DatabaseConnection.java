@@ -54,7 +54,21 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
+    public int returnCountQuery(String data){
+        try {
+            ResultSet result = statement.executeQuery(data);
+            while (result.next()) {
+                String x = result.getString(1);
+                int results = Integer.parseInt(x);
+                return results;
+            }
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     //Testing methods
     public static void main (String[] args) {
         DatabaseConnection db = new DatabaseConnection();
