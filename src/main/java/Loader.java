@@ -28,7 +28,7 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
             String date = photoAndDate[1];
             String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
             String cpr = reporterInfo[0];
-            insertStatements[i] = "INSERT INTO Image("+title+","+ date+","+ cpr+")";
+            insertStatements[i] = "INSERT INTO Image(Title, Date_Taken, Reporter_id) VALUES"+"("+"'"+title+"'"+","+date+","+ cpr+");";
             i++;
         }
         return insertStatements;
@@ -54,8 +54,7 @@ public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndRep
             i++;
         }
         return insertStatements;
-    } catch (
-            IOException e) {
+    } catch (IOException e) {
         e.printStackTrace();
     }
     return null;
