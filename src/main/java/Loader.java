@@ -49,7 +49,7 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
             String country = reporterInfo[6];
-        if(reporterExists(Integer.parseInt(cpr))){
+        if(!reporterExists(Integer.parseInt(cpr))){
                 insertStatements[i] = "INSERT INTO...";
             } else {
                 insertStatements[i] = "";
