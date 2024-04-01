@@ -55,6 +55,7 @@ public String[] adressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
             //INSERT photoAndReporter.getReporter() into the database
             String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
+            String cpr = reporterInfo[0];
             String streetName = reporterInfo[3];
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
