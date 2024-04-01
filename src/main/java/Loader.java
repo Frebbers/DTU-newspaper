@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Loader  {
     PhotosAndReportersLoader loader;
+    DatabaseConnection dbConnection;
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
@@ -58,8 +59,8 @@ public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndRep
         return insertStatements;
 }
 
-public static boolean reporterExists(int cpr){
+public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    return queryResult > 0;
+    return (dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?") > 0);
 }
 }
