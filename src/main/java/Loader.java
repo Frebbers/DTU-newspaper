@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Loader  {
     PhotosAndReportersLoader loader;
+    DatabaseConnection dbConnection;
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
@@ -34,9 +35,8 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
         return insertStatements;
 }
 
-public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
-    try {
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
@@ -49,19 +49,23 @@ public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndRep
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
             String country = reporterInfo[6];
-            System.out.println(streetName);
-            insertStatements[i] = "";
+        if(!reporterExists(Integer.parseInt(cpr))){
+                insertStatements[i] = "INSERT INTO...";
+            } else {
+                insertStatements[i] = "";
+            }
             i++;
         }
         return insertStatements;
-    } catch (IOException e) {
+    } catch (
+            IOException e) {
         e.printStackTrace();
     }
     return null;
 }
 
-public static boolean reporterExists(int cpr){
+public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    return queryResult > 0;
+    return (dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?") > 0);
 }
 }
