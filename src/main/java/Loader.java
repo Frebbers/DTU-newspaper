@@ -28,7 +28,7 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
             String date = photoAndDate[1];
             String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
             String cpr = reporterInfo[0];
-            insertStatements[i] =
+            insertStatements[i] = "INSERT INTO Image("+title+","+ date+","+ cpr+")";
             i++;
         }
         return insertStatements;
