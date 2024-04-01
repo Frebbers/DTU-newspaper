@@ -35,7 +35,7 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
         return insertStatements;
 }
 
-public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
