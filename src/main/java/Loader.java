@@ -42,7 +42,7 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
             String date = photoAndDate[1];
             String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
             String cpr = reporterInfo[0];
-            insertStatements[i] = "INSERT INTO Image("+title+","+ date+","+ cpr+")";
+            insertStatements[i] = "INSERT INTO Image(Title, Date_Taken, Reporter_id) VALUES"+"("+"'"+title+"'"+","+date+","+ cpr+");";
             i++;
         }
         return insertStatements;
@@ -70,10 +70,10 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
             i++;
         }
         return insertStatements;
-}
-
+    }
 public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    return (dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?") > 0);
+    int count = dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?");
+    return count > 0;
 }
 }
