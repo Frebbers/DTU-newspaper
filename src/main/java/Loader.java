@@ -57,15 +57,10 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
             i++;
         }
         return insertStatements;
-    } catch (
-            IOException e) {
-        e.printStackTrace();
     }
-    return null;
-}
-
 public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    return (dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?") > 0);
+    int count = dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?");
+    return count > 0;
 }
 }
