@@ -36,7 +36,6 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
 
 public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
-    try {
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
@@ -49,16 +48,14 @@ public static String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndRep
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
             String country = reporterInfo[6];
-            System.out.println(streetName);
-            insertStatements[i] = "";
+        if(reporterExists(Integer.parseInt(cpr))){
+                insertStatements[i] = "INSERT INTO...";
+            } else {
+                insertStatements[i] = "";
+            }
             i++;
         }
         return insertStatements;
-    } catch (
-            IOException e) {
-        e.printStackTrace();
-    }
-    return null;
 }
 
 public static boolean reporterExists(int cpr){
