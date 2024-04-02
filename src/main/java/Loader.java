@@ -112,12 +112,12 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
 
 public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    int count = dbConnection.returnCountQuery("SELECT COUNT("+ cpr +") FROM USERS WHERE ID = ?");
+    int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Journalist WHERE CPR_NUMBER = " + cpr);
     return count > 0;
 }
-public boolean adressExists(int id){
+public boolean adressExists(String streetName, String civicNumber, String city, String zipCode, String country){
     //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-int count = dbConnection.returnCountQuery("SELECT COUNT("+ id +") FROM USERS WHERE ID = ?");
+int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND city = '" + city + "' AND zip_code = '" + zipCode + "' AND country = '"+country+"'");
 return count > 0;
 }
 
