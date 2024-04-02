@@ -70,6 +70,7 @@ public class Loader  {
                 insertStatements[i] = "INSERT INTO Image(Title, Date_Taken, Reporter_id) VALUES"+"("+"'"+title+"'"+","+date+","+ cpr+");";
                 insertValue(insertStatements[i]);
                 System.out.println("Image with title: " + title + " and date: " + date + " is now inserted");
+                insertValue("INSERT INTO Reporter (Reporter_ID, Image_Title) VALUES (" + cpr + ", '" + title + "')");
             }
             else {
                 System.out.println("Image with title: " + title + " and date: " + date + " already exists");
