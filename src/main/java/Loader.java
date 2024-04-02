@@ -19,7 +19,7 @@ public class Loader  {
             String absolutePath = new File(relativePath).getAbsolutePath();
             List<PhotoAndReporter> photosAndReporters = PRLoader.loadPhotosAndReporters(absolutePath);
 
-            String[] insertAdressStatements = loader.insertAdressBuilder(photosAndReporters);
+            String[] insertAdressStatements = loader.insertAddressBuilder(photosAndReporters);
             loader.insertValues(insertAdressStatements);
             String[] journalistInsertStatements = loader.journalistInsertBuilder(photosAndReporters);
             String[] imageInsertStatements = loader.imageInsertBuilder(photosAndReporters);
@@ -67,7 +67,7 @@ public class Loader  {
         return insertStatements;
     }
 
-    public String[] insertAdressBuilder(List<PhotoAndReporter> photosAndReporters){
+    public String[] insertAddressBuilder(List<PhotoAndReporter> photosAndReporters){
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
@@ -83,13 +83,14 @@ public class Loader  {
             String city = reporterInfo[6];
             String country = "Denmark";
 
-            if(!adressExists(streetName,civicNumber,city,zipCode,country)){
+            if(!addressExists(streetName,civicNumber,city,zipCode,country)){
 
 
                 insertStatements[i] = "INSERT INTO Address(address_id, street_name, civic_number, city, zip_code, country) VALUES"+
                         "("+id+"," +"'"+streetName+"'"+","+ "'"+civicNumber+"'"+"," +"'"+city+"'"+","+ "'"+zipCode+"'"+","+ "'Denmark')";
-                System.out.println(" Inserting adress: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark is now inserted with an address_id of " + id );
+                System.out.println(" Inserting address: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark is now inserted with an address_id of " + id );
             } else {
+                System.out.println("Address already exists: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark");
                 insertStatements[i] = "";
             }
             i++;
@@ -115,7 +116,7 @@ public class Loader  {
             String country = reporterInfo[6];
             if(!reporterExists(Integer.parseInt(cpr))){
                 int addressId = 0;
-                if(adressExists(streetName, civicNumber, country, zipCode, country)){
+                if(addressExists(streetName, civicNumber, country, zipCode, country)){
                     try {
                         addressId = getAddressId(streetName, civicNumber, zipCode);
                     } catch (SQLException e) {
@@ -124,7 +125,7 @@ public class Loader  {
                 }
 
                 else{
-                    insertAdressBuilder(photosAndReporters);
+                    insertAddressBuilder(photosAndReporters);
                     try {
                         addressId = getAddressId(streetName, civicNumber, zipCode);
                     } catch (SQLException e) {
@@ -136,6 +137,7 @@ public class Loader  {
                 System.out.println("Journalist with CPR "+ cpr + " is inserted now");
                 insertStatements[i] = sql;
             }else {
+                System.out.println("Journalist already exists with CPR "+ cpr);
                 insertStatements[i] = "";
             }
             i++;
@@ -162,7 +164,7 @@ public class Loader  {
         int count = dbConnection.returnCountQuery2("SELECT COUNT(*) FROM Journalist WHERE CPR_NUMBER = ?", cpr);
         return count > 0;
     }
-    public boolean adressExists(String streetName, String civicNumber, String city, String zipCode, String country){
+    public boolean addressExists(String streetName, String civicNumber, String city, String zipCode, String country){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
         int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND city = '" + city + "' AND zip_code = '" + zipCode + "' AND country = '"+country+"'");
         return count > 0;
