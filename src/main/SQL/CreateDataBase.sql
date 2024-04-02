@@ -22,11 +22,12 @@ CREATE TABLE Edition
 (
     Edition_ID      INT PRIMARY KEY,
     Newspaper_Title VARCHAR(255),
-    Release_date    DATE NOT NULL
+    Release_date    DATE NOT NULL,
+    FOREIGN KEY (Newspaper_Title) REFERENCES Newspaper(Title)
 );
 CREATE TABLE Image
 (
-    ID          INT PRIMARY KEY,
+    Title          VARCHAR(255) PRIMARY KEY,
     Date_Taken  DATE NOT NULL,
     Reporter_id INT  NOT NULL
 );
@@ -52,6 +53,7 @@ CREATE TABLE Article
     ID   INT PRIMARY KEY,
     Release_Date DATE         NOT NULL,
     Title        VARCHAR(255) NOT NULL,
+    Topic        VARCHAR(255) NOT NULL,
     View_Count   INT DEFAULT 0
 );
 
@@ -65,27 +67,26 @@ CREATE TABLE Editor
 
 CREATE TABLE Reporter
 (
-    Reporter_ID INT,
-    Image_Title VARCHAR(255),
-    PRIMARY KEY (Reporter_ID, Image_Title),
-    FOREIGN KEY (Reporter_ID) REFERENCES Reporter (Reporter_ID),
+    Reporter_ID INT PRIMARY KEY,
+    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
+    Image_Title    VARCHAR(255) NOT NULL,
     FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 CREATE TABLE Writes
 (
-    journalist_id INT,
-    article_id    INT,
+    Journalist_ID INT,
+    Article_ID    INT,
     Role          VARCHAR(20),
-    PRIMARY KEY (journalist_id, article_id),
-    FOREIGN KEY (journalist_id) REFERENCES Journalist (CPR_NUMBER),
-    FOREIGN KEY (article_id) REFERENCES Article (ID)
+    PRIMARY KEY (Journalist_ID, Article_ID),
+    FOREIGN KEY (Journalist_ID) REFERENCES Journalist (CPR_NUMBER),
+    FOREIGN KEY (Article_ID) REFERENCES Article (ID)
 );
 CREATE TABLE ArticlePhotos
 (
-    Article_id INT,
-    img_id     INT,
-    PRIMARY KEY (Article_id, img_id),
-    FOREIGN KEY (Article_id) REFERENCES Article (ID),
-    FOREIGN KEY (img_id) REFERENCES Image (ID)
+    Article_ID INT,
+    Image_Title     VARCHAR(255),
+    PRIMARY KEY (Article_ID, Image_Title),
+    FOREIGN KEY (Article_ID) REFERENCES Article (ID),
+    FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 

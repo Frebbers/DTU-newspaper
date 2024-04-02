@@ -8,10 +8,11 @@ import java.util.List;
 
 public class Loader  {
     PhotosAndReportersLoader loader;
-    DatabaseConnection dbConnection;
+    DatabaseConnection dbConnection = new DatabaseConnection();
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
             Loader loader = new Loader();
+            
             PhotosAndReportersLoader PRLoader = new PhotosAndReportersLoader();
             String relativePath = "src/main/resources/uploads.csv";
             System.out.println("loading from "+ relativePath);
@@ -26,17 +27,17 @@ public class Loader  {
             loader.insertValues(insertAdressStatements);
             loader.insertValues(journalistInsertStatements);
             loader.insertValues(imageInsertStatements);
-            loader.insertValues(reporterInsertStatements);
+            //loader.insertValues(reporterInsertStatements);
             
     } catch (IOException e) {
         e.printStackTrace();
     }
 
 }
-private void insertValues(String[] insertStatements){
-    //Insert values into the database
+private void insertValues(String[] insertStatements) {
+    // Insert values into the database
     for (String statement : insertStatements) {
-        if(!statement.isEmpty()){
+        if (statement != null && !statement.isEmpty()) {
             dbConnection.executeStatement(statement);
         }
     }
@@ -71,7 +72,7 @@ public String[] insertAdressBuilder(List<PhotoAndReporter> photosAndReporters){
             String zipCode = reporterInfo[5];
             String city = reporterInfo[6];
             String country = "Denmark";
-            int id = adressIdGenerator();
+            int id = addressIdGenerator();
             if(!adressExists(streetName,civicNumber,city,zipCode,country)){
                 insertStatements[i] = "INSERT INTO Address(address_id, street_name, civic_number, city, zip_code, country) VALUES"+
                 "("+id+"," +"'"+streetName+"'"+","+ "'"+civicNumber+"'"+"," +"'"+city+"'"+","+ "'"+zipCode+"'"+","+ "'Denmark')";
@@ -153,9 +154,13 @@ int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address WHERE st
 return count > 0;
 }
 
-public int adressIdGenerator() {
-    return dbConnection.idGenerator("SELECT MAX(address_id) FROM Address");
+public int addressIdGenerator() {
+    int v;
+    v = dbConnection.idGenerator("SELECT COUNT(address_id) FROM Address");
+    return v;
 }
+
+
 
 private int getAddressId(String streetName, String civicNumber, String zipCode) throws SQLException {
     String sql = "SELECT address_id FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND zip_code = '" + zipCode + "'";

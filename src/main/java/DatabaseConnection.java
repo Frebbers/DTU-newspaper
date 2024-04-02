@@ -15,7 +15,7 @@ public class DatabaseConnection {
         String cp = "utf8";
 
         String username = "root";
-        String password = "Ziabeg10";
+        String password = "v";
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?characterEncoding=" + cp;
 
@@ -70,9 +70,15 @@ public class DatabaseConnection {
         }
         return 0;
     }
-
+    public boolean adressIdExists(int id){
+        //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
+    int count = returnCountQuery("SELECT COUNT(*) FROM Address WHERE address_id = " + id);
+    return count > 0;
+    
+    }
     public int idGenerator(String data){
         int id = 0;
+
 
     try {
         // Call Zia's method to get the maximum address_id present in the table
@@ -88,7 +94,9 @@ public class DatabaseConnection {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
+    if(adressIdExists(id)){
+        id++;
+    }
     return id;
     }
     public ResultSet executeQuery2(String data) {
