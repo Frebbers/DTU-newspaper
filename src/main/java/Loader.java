@@ -29,12 +29,12 @@ public class Loader  {
             loader.insertValues(insertAdressStatements);
             //Insert journalists into the database
             loader.journalistInsertBuilder(photosAndReporters);
-            String[] imageInsertStatements = loader.imageInsertBuilder(photosAndReporters);
+            loader.imageInsertBuilder(photosAndReporters);
             String[] reporterInsertStatements = loader.insertReporterImagesBuilder(photosAndReporters);
 
 
             //loader.insertValues(journalistInsertStatements);
-            loader.insertValues(imageInsertStatements);
+           // loader.insertValues(imageInsertStatements);
             //loader.insertValues(reporterInsertStatements);
 
         } catch (IOException e) {
@@ -56,7 +56,7 @@ public class Loader  {
             dbConnection.executeStatement(statement);
         }
     }
-    public String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReporters) throws IOException{
+    public void imageInsertBuilder(List<PhotoAndReporter> photosAndReporters) throws IOException{
         int i = 0;
         String[] insertStatements = new String[photosAndReporters.size()];
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
@@ -68,18 +68,18 @@ public class Loader  {
             String cpr = reporterInfo[0];
             if (!imageExists(title, date)) {
                 insertStatements[i] = "INSERT INTO Image(Title, Date_Taken, Reporter_id) VALUES"+"("+"'"+title+"'"+","+date+","+ cpr+");";
+                insertValue(insertStatements[i]);
             }
             i++;
         }
-        return insertStatements;
     }
 
     public String[] insertAddressBuilder(List<PhotoAndReporter> photosAndReporters){
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
-        int id = 0;
-        id = addressIdGenerator();
+        //int id = 0;
+        //id = addressIdGenerator();
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
 
             //INSERT photoAndReporter.getReporter() into the database
@@ -93,15 +93,14 @@ public class Loader  {
             if(!addressExists(streetName,civicNumber,city,zipCode,country)){
 
 
-                insertStatements[i] = "INSERT INTO Address(address_id, street_name, civic_number, city, zip_code, country) VALUES"+
-                        "("+id+"," +"'"+streetName+"'"+","+ "'"+civicNumber+"'"+"," +"'"+city+"'"+","+ "'"+zipCode+"'"+","+ "'Denmark')";
-                System.out.println(" Inserting address: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark is now inserted with an address_id of " + id );
+                insertStatements[i] = "INSERT INTO Address(street_name, civic_number, city, zip_code, country) VALUES"+
+                        "('"+streetName+"'"+","+ "'"+civicNumber+"'"+"," +"'"+city+"'"+","+ "'"+zipCode+"'"+","+ "'Denmark')";
+                System.out.println(" Inserting address: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark is now inserted" );
             } else {
                 System.out.println("Address already exists: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark");
                 insertStatements[i] = "";
             }
             i++;
-            id++;
         }
         return insertStatements;
     }
@@ -200,7 +199,7 @@ public class Loader  {
         return false;
     }
 
-/*
+
     private int getAddressId(String streetName, String civicNumber, String zipCode) throws SQLException {
         String sql = "SELECT address_id FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND zip_code = '" + zipCode + "'";
         ResultSet rs = dbConnection.executeQuery2(sql);
@@ -209,6 +208,6 @@ public class Loader  {
         }
         return -1;
     }
-*/
+
 
 }
