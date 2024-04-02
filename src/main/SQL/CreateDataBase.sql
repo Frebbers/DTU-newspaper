@@ -4,7 +4,7 @@ USE DKAvisen;
 
 CREATE TABLE Address
 (
-    address_id   INT PRIMARY KEY,
+    address_id   INT PRIMARY KEY AUTO_INCREMENT,
     street_name  VARCHAR(255),
     civic_number VARCHAR(20),
     city         VARCHAR(100),
@@ -20,7 +20,7 @@ CREATE TABLE Newspaper
 );
 CREATE TABLE Edition
 (
-    Edition_ID      INT PRIMARY KEY,
+    Edition_ID      INT PRIMARY KEY AUTO_INCREMENT,
     Newspaper_Title VARCHAR(255),
     Release_date    DATE NOT NULL
 );
@@ -49,7 +49,7 @@ CREATE TABLE JournalistPhoneNumbers
 
 CREATE TABLE Article
 (
-    ID   INT PRIMARY KEY,
+    ID   INT PRIMARY KEY AUTO_INCREMENT,
     Release_Date DATE         NOT NULL,
     Title        VARCHAR(255) NOT NULL,
     View_Count   INT DEFAULT 0,
