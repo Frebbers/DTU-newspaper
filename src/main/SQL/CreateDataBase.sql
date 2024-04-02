@@ -37,7 +37,7 @@ CREATE TABLE Journalist
     CPR_NUMBER    INT          NOT NULL PRIMARY KEY,
     First_name    VARCHAR(255) NOT NULL,
     Last_name     VARCHAR(255) NOT NULL,
-    Email_address VARCHAR(255) NOT NULL,
+    Email_address VARCHAR(255),
     Address_ID    INT          NOT NULL,
     FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
 );
