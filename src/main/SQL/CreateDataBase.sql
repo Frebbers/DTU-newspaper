@@ -52,7 +52,8 @@ CREATE TABLE Article
     ID   INT PRIMARY KEY,
     Release_Date DATE         NOT NULL,
     Title        VARCHAR(255) NOT NULL,
-    View_Count   INT DEFAULT 0
+    View_Count   INT DEFAULT 0,
+    Topic       VARCHAR(255)
 );
 
 CREATE TABLE Editor
