@@ -16,7 +16,7 @@ public class DatabaseConnection {
         String cp = "utf8";
 
         String username = "root";
-        String password = "v";
+        String password = "Tommytomato243";
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?characterEncoding=" + cp;
 

@@ -85,10 +85,10 @@ public class Loader  {
 
             if(!adressExists(streetName,civicNumber,city,zipCode,country)){
 
-                System.out.println(id);
+
                 insertStatements[i] = "INSERT INTO Address(address_id, street_name, civic_number, city, zip_code, country) VALUES"+
                         "("+id+"," +"'"+streetName+"'"+","+ "'"+civicNumber+"'"+"," +"'"+city+"'"+","+ "'"+zipCode+"'"+","+ "'Denmark')";
-
+                System.out.println(" Inserting adress: " + streetName + ", " +civicNumber + ", " + zipCode + ", " + city + ", Denmark is now inserted with an address_id of " + id );
             } else {
                 insertStatements[i] = "";
             }
@@ -113,11 +113,9 @@ public class Loader  {
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
             String country = reporterInfo[6];
-            System.out.println(cpr);
             if(!reporterExists(Integer.parseInt(cpr))){
                 int addressId = 0;
                 if(adressExists(streetName, civicNumber, country, zipCode, country)){
-
                     try {
                         addressId = getAddressId(streetName, civicNumber, zipCode);
                     } catch (SQLException e) {
@@ -135,6 +133,7 @@ public class Loader  {
                 }
                 String sql = "INSERT INTO Journalist (CPR_NUMBER, First_name, Last_name, Email_address, Address_ID) VALUES (" + cpr + ", '" + firstName + "', '" + lastName + "', 'unknown@email.com', " + addressId + ")";
                 insertValue(sql);
+                System.out.println("Journalist with CPR "+ cpr + " is inserted now");
                 insertStatements[i] = sql;
             }else {
                 insertStatements[i] = "";
