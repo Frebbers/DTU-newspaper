@@ -131,7 +131,6 @@ public class Loader  {
                 }
 
                 else{
-                    insertAddressBuilder(photosAndReporters);
                     try {
                         addressId = getAddressId(streetName, civicNumber, zipCode);
                     } catch (SQLException e) {
