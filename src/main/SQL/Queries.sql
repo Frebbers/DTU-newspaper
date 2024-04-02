@@ -37,6 +37,7 @@ GROUP BY a.Topic
 HAVING AVG(a.View_Count) < (SELECT AVG(View_Count) FROM Article);
 
 
+
 SELECT DISTINCT j.First_name, j.Last_name
 FROM Journalist j
 JOIN Writes w ON j.CPR_NUMBER = w.journalist_id
