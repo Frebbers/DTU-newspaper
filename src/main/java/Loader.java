@@ -25,8 +25,10 @@ public class Loader  {
             List<PhotoAndReporter> photosAndReporters = PRLoader.loadPhotosAndReporters(absolutePath);
 
             String[] insertAdressStatements = loader.insertAddressBuilder(photosAndReporters);
+            //Insert addresses into the database
             loader.insertValues(insertAdressStatements);
-            String[] journalistInsertStatements = loader.journalistInsertBuilder(photosAndReporters);
+            //Insert journalists into the database
+            loader.journalistInsertBuilder(photosAndReporters);
             String[] imageInsertStatements = loader.imageInsertBuilder(photosAndReporters);
             String[] reporterInsertStatements = loader.insertReporterImagesBuilder(photosAndReporters);
 
@@ -105,7 +107,7 @@ public class Loader  {
     }
 
 
-    public String[] journalistInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+    public void journalistInsertBuilder(List<PhotoAndReporter> photosAndReporters){
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
@@ -147,7 +149,6 @@ public class Loader  {
             }
             i++;
         }
-        return insertStatements;
     }
 
     public String[] insertReporterImagesBuilder(List<PhotoAndReporter> photosAndReporters) {
@@ -174,12 +175,13 @@ public class Loader  {
         int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND city = '" + city + "' AND zip_code = '" + zipCode + "' AND country = '"+country+"'");
         return count > 0;
     }
-
+/*
     public int addressIdGenerator() {
         int v;
         v = dbConnection.idGenerator("SELECT COUNT(address_id) FROM Address");
         return v;
     }
+    */
     private boolean imageExists(String title, String date) {
         try {
             // Query to check if an image with the same title and date exists
@@ -198,7 +200,7 @@ public class Loader  {
         return false;
     }
 
-
+/*
     private int getAddressId(String streetName, String civicNumber, String zipCode) throws SQLException {
         String sql = "SELECT address_id FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND zip_code = '" + zipCode + "'";
         ResultSet rs = dbConnection.executeQuery2(sql);
@@ -207,6 +209,6 @@ public class Loader  {
         }
         return -1;
     }
-
+*/
 
 }
