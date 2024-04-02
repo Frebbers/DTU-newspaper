@@ -7,9 +7,9 @@ FROM Article a
 JOIN Writes w ON a.ID = w.article_id
 JOIN Journalist j ON w.journalist_id = j.CPR_NUMBER
 JOIN ArticlePhotos ap ON a.ID = ap.Article_id
-JOIN Image i ON ap.img_id = i.ID
+JOIN Image i ON ap.Image_Title = i.Title
 JOIN Reporter r ON j.CPR_NUMBER = r.Reporter_ID
-JOIN Edition e ON r.Image_ID = e.Edition_ID
+JOIN Edition e ON r.Image_Title = e.Edition_ID
 JOIN Newspaper n ON e.Newspaper_Title = n.Title
 GROUP BY a.Topic;
 
@@ -26,9 +26,9 @@ LIMIT 10;
 SELECT j.First_name, j.Last_name
 FROM journalist j
 JOIN reporter r ON j.CPR_NUMBER = r.Reporter_ID
-JOIN image i ON r.Image_ID = i.ID
+JOIN image i ON r.Image_Title = i.Title
 GROUP BY  j.CPR_NUMBER
-HAVING COUNT(r.Image_ID) = 1;
+HAVING COUNT(r.Image_Title) = 1;
 
 
 SELECT a.Topic, AVG(a.View_Count) AS Avg_Reads
@@ -42,5 +42,5 @@ FROM Journalist j
 JOIN Writes w ON j.CPR_NUMBER = w.journalist_id
 JOIN Article a ON w.article_id = a.ID
 JOIN ArticlePhotos ap ON a.ID = ap.Article_id
-JOIN Image i ON ap.img_id = i.ID
+JOIN Image i ON ap.Image_Title = i.Title
 JOIN Reporter r ON j.CPR_NUMBER = r.Reporter_ID;

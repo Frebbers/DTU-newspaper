@@ -20,7 +20,7 @@ INSERT INTO Edition(Edition_ID, Newspaper_Title, Release_date) VALUES
 (4, 'La Repubblica', '2023-01-04'),
 (5, 'Neue Zürcher Zeitung', '2023-01-05');
 
-INSERT INTO Image(ID, Date_Taken, Reporter_id) VALUES
+INSERT INTO Image(Title, Date_Taken, Reporter_id) VALUES
 (1, '2023-01-01', 1),
 (2, '2023-01-02', 2),
 (3, '2023-01-03', 3),
@@ -55,7 +55,7 @@ INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (4, 4),
 (5, 5);
 
-INSERT INTO Reporter(Reporter_ID, Image_ID) VALUES
+INSERT INTO Reporter(Reporter_ID, Image_Title) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
@@ -70,7 +70,7 @@ INSERT INTO Writes(journalist_id, article_id, Role) VALUES
 (4, 4, 'Author'),
 (5, 5, 'Author');
 
-INSERT INTO ArticlePhotos(Article_id, img_id) VALUES
+INSERT INTO ArticlePhotos(Article_id, Image_Title) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
