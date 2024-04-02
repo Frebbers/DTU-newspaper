@@ -1,6 +1,4 @@
 Use dkavisen;
-SELECT * from writes;
-
 
 SELECT a.Title AS Article_Title, MAX(a.View_Count) AS Views, a.Topic
 FROM Article a
