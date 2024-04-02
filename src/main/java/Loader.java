@@ -5,14 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public class Loader  {
     PhotosAndReportersLoader loader;
-    DatabaseConnection dbConnection = new DatabaseConnection();
+    DatabaseConnection dbConnection;
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
             Loader loader = new Loader();
-            loader.dbConnection = new DatabaseConnection();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the password for the database: ");
+            String password = scanner.nextLine();
+            loader.dbConnection = new DatabaseConnection(password);
+            scanner.close();
             PhotosAndReportersLoader PRLoader = new PhotosAndReportersLoader();
             String relativePath = "src/main/resources/uploads.csv";
             System.out.println("loading from "+ relativePath);

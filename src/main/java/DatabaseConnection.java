@@ -9,14 +9,14 @@ import java.sql.Statement;
 public class DatabaseConnection {
     public Connection connection;
     Statement statement;
-    public DatabaseConnection () {
+    public DatabaseConnection (String passwd) {
         String host = "localhost";
         String port = "3306";
         String database = "dkavisen";
         String cp = "utf8";
 
         String username = "root";
-        String password = "Tommytomato243";
+        String password = passwd;
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?characterEncoding=" + cp;
 
@@ -144,7 +144,7 @@ public class DatabaseConnection {
 
     //Testing methods
     public static void main (String[] args) {
-        DatabaseConnection db = new DatabaseConnection();
+        DatabaseConnection db = new DatabaseConnection("test");
         db.executeStatement("INSERT dkavisen.image VALUES (6, '2023-03-20', 6)");
         db.closeConnection();
     }
