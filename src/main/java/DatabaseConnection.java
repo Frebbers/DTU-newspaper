@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class DatabaseConnection {
 
         try {
             // Create a connection to database
-            Connection connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
         }
         catch (Exception e) {
@@ -70,6 +71,31 @@ public class DatabaseConnection {
         }
         return 0;
     }
+    public int returnCountQuery2(String sql, int parameter){
+ int count = 0;
+    try {
+        // Create the prepared statement
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        // Set the parameter
+        preparedStatement.setInt(1, parameter);
+
+        // Execute the query
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // Retrieve the count from the result set
+        if (resultSet.next()) {
+            count = resultSet.getInt(1);
+        }
+
+        // Close the result set and the prepared statement
+        resultSet.close();
+        preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+    }
     public boolean adressIdExists(int id){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
     int count = returnCountQuery("SELECT COUNT(*) FROM Address WHERE address_id = " + id);
@@ -98,6 +124,9 @@ public class DatabaseConnection {
         id++;
     }
     return id;
+    }
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+        return connection.prepareStatement(sql);
     }
     public ResultSet executeQuery2(String data) {
         try {

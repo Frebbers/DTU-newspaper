@@ -67,9 +67,10 @@ CREATE TABLE Editor
 
 CREATE TABLE Reporter
 (
-    Reporter_ID INT PRIMARY KEY,
-    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
-    Image_Title    VARCHAR(255) NOT NULL,
+    Reporter_ID INT,
+    Image_Title VARCHAR(255),
+    PRIMARY KEY (Reporter_ID, Image_Title),
+    FOREIGN KEY (Reporter_ID) REFERENCES Reporter (Reporter_ID),
     FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 CREATE TABLE Writes
@@ -83,10 +84,10 @@ CREATE TABLE Writes
 );
 CREATE TABLE ArticlePhotos
 (
-    Article_ID INT,
-    Image_Title     VARCHAR(255),
-    PRIMARY KEY (Article_ID, Image_Title),
-    FOREIGN KEY (Article_ID) REFERENCES Article (ID),
-    FOREIGN KEY (Image_Title) REFERENCES Image (Title)
+    Article_id INT,
+    img_id     INT,
+    PRIMARY KEY (Article_id, img_id),
+    FOREIGN KEY (Article_id) REFERENCES Article (ID),
+    FOREIGN KEY (img_id) REFERENCES Image (ID)
 );
 
