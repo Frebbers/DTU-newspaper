@@ -17,10 +17,17 @@ public class Loader  {
             System.out.println("loading from "+ relativePath);
             String absolutePath = new File(relativePath).getAbsolutePath();
             List<PhotoAndReporter> photosAndReporters = PRLoader.loadPhotosAndReporters(absolutePath);
+
+            String[] insertAdressStatements = loader.insertAdressBuilder(photosAndReporters);
+            String[] journalistInsertStatements = loader.journalistInsertBuilder(photosAndReporters);
             String[] imageInsertStatements = imageInsertBuilder(photosAndReporters);
-            String[] reporterInsertStatements = loader.reporterInsertBuilder(photosAndReporters);
-            loader.insertValues(reporterInsertStatements);
+            String[] reporterInsertStatements = loader.insertReporterImagesBuilder(photosAndReporters);
+
+            loader.insertValues(insertAdressStatements);
+            loader.insertValues(journalistInsertStatements);
             loader.insertValues(imageInsertStatements);
+            loader.insertValues(reporterInsertStatements);
+            
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -51,7 +58,7 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
         return insertStatements;
 }
 
-public String[] adressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+public String[] insertAdressBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
@@ -104,7 +111,7 @@ public String[] journalistInsertBuilder(List<PhotoAndReporter> photosAndReporter
             }
 
             else{
-                adressInsertBuilder(photosAndReporters);
+                insertAdressBuilder(photosAndReporters);
                 try {
                     addressId = getAddressId(streetName, civicNumber, zipCode);
                 } catch (SQLException e) {
@@ -137,7 +144,7 @@ public String[] journalistInsertBuilder(List<PhotoAndReporter> photosAndReporter
 
 public boolean reporterExists(int cpr){
         //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-    int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Reporter WHERE Reporter_ID = " + cpr);
+    int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Journalist WHERE CPR_NUMBER = " + cpr);
     return count > 0;
 }
 public boolean adressExists(String streetName, String civicNumber, String city, String zipCode, String country){
