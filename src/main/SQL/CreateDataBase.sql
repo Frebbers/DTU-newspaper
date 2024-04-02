@@ -22,8 +22,7 @@ CREATE TABLE Edition
 (
     Edition_ID      INT PRIMARY KEY,
     Newspaper_Title VARCHAR(255),
-    Release_date    DATE NOT NULL,
-    FOREIGN KEY (Newspaper_Title) REFERENCES Newspaper(Title)
+    Release_date    DATE NOT NULL
 );
 CREATE TABLE Image
 (
@@ -37,7 +36,7 @@ CREATE TABLE Journalist
     CPR_NUMBER    INT          NOT NULL PRIMARY KEY,
     First_name    VARCHAR(255) NOT NULL,
     Last_name     VARCHAR(255) NOT NULL,
-    Email_address VARCHAR(255) NOT NULL,
+    Email_address VARCHAR(255),
     Address_ID    INT          NOT NULL,
     FOREIGN KEY (Address_ID) REFERENCES Address (address_id)
 );
@@ -53,7 +52,6 @@ CREATE TABLE Article
     ID   INT PRIMARY KEY,
     Release_Date DATE         NOT NULL,
     Title        VARCHAR(255) NOT NULL,
-    Topic        VARCHAR(255) NOT NULL,
     View_Count   INT DEFAULT 0
 );
 
@@ -70,24 +68,24 @@ CREATE TABLE Reporter
     Reporter_ID INT,
     Image_Title VARCHAR(255),
     PRIMARY KEY (Reporter_ID, Image_Title),
-    FOREIGN KEY (Reporter_ID) REFERENCES Reporter (Reporter_ID),
+    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
     FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 CREATE TABLE Writes
 (
-    Journalist_ID INT,
-    Article_ID    INT,
+    journalist_id INT,
+    article_id    INT,
     Role          VARCHAR(20),
-    PRIMARY KEY (Journalist_ID, Article_ID),
-    FOREIGN KEY (Journalist_ID) REFERENCES Journalist (CPR_NUMBER),
-    FOREIGN KEY (Article_ID) REFERENCES Article (ID)
+    PRIMARY KEY (journalist_id, article_id),
+    FOREIGN KEY (journalist_id) REFERENCES Journalist (CPR_NUMBER),
+    FOREIGN KEY (article_id) REFERENCES Article (ID)
 );
 CREATE TABLE ArticlePhotos
 (
     Article_id INT,
-    img_id     INT,
-    PRIMARY KEY (Article_id, img_id),
+    Image_Title     VARCHAR(255),
+    PRIMARY KEY (Article_id, Image_Title),
     FOREIGN KEY (Article_id) REFERENCES Article (ID),
-    FOREIGN KEY (img_id) REFERENCES Image (ID)
+    FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 
