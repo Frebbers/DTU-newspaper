@@ -89,10 +89,14 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
             String zipCode = reporterInfo[5];
             String city = reporterInfo[6];
         if(!reporterExists(Integer.parseInt(cpr))){
-                insertStatements[i] ="INSERT INTO Address(" + (maxAddressID+1) + "," + streetName + "," +
+                insertStatements[i] ="INSERT INTO Address(address_id, street_name, civic_number," +
+                        " city, zip_code, country) VALUES " +
+                        "(" + (maxAddressID+1) + "," + streetName + "," +
                         civicNumber + "," + city + "," + zipCode + "," + "Denmark" + ");";
                 i++;
-                insertStatements[i] = "INSERT INTO Journalist(" + cpr + "," + firstName + "," + lastName + "," +
+                insertStatements[i] = "INSERT INTO Journalist" +
+                        "(cpr, first_name, last_name," + maxAddressID +") VALUES " +
+                        "(" + cpr + "," + "'" + firstName + "'" + ", '" + lastName + "', " +
                         (maxAddressID+1) + ");";
                 maxAddressID++;
 
