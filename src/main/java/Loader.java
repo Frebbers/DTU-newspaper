@@ -9,6 +9,7 @@ public class Loader  {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
             Loader loader = new Loader();
+            loader.dbConnection = new DatabaseConnection();
             PhotosAndReportersLoader PRLoader = new PhotosAndReportersLoader();
             String relativePath = "src/main/resources/uploads.csv";
             System.out.println("loading from "+ relativePath);
@@ -47,8 +48,8 @@ public static String[] imageInsertBuilder(List<PhotoAndReporter> photosAndReport
         }
         return insertStatements;
 }
-
-public String[] adressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
+/*
+public String[] addressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
@@ -70,12 +71,13 @@ public String[] adressInsertBuilder(List<PhotoAndReporter> photosAndReporters){
         }
         return insertStatements;
     }
-
+*/
 
 public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters){
     PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
-        String[] insertStatements = new String[photosAndReporters.size()];
+        String[] insertStatements = new String[photosAndReporters.size()*2];
         int i = 0;
+        int maxAddressID = adressIdGenerator();
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
             //INSERT photoAndReporter.getReporter() into the database
             String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
@@ -85,9 +87,15 @@ public String[] reporterInsertBuilder(List<PhotoAndReporter> photosAndReporters)
             String streetName = reporterInfo[3];
             String civicNumber = reporterInfo[4];
             String zipCode = reporterInfo[5];
-            String country = reporterInfo[6];
+            String city = reporterInfo[6];
         if(!reporterExists(Integer.parseInt(cpr))){
-                insertStatements[i] = "INSERT INTO...";
+                insertStatements[i] ="INSERT INTO Address(" + (maxAddressID+1) + "," + streetName + "," +
+                        civicNumber + "," + city + "," + zipCode + "," + "Denmark" + ");";
+                i++;
+                insertStatements[i] = "INSERT INTO Journalist(" + cpr + "," + firstName + "," + lastName + "," +
+                        (maxAddressID+1) + ");";
+                maxAddressID++;
+
             } else {
                 insertStatements[i] = "";
             }
@@ -111,7 +119,7 @@ return count > 0;
 
 public int adressIdGenerator(){
     //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
-int id = dbConnection.returnCountQuery("SELECT COUNT(*) FROM adress")+1;
+int id = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address")+1;
 while(adressExists(id)){
     id++;
 }
