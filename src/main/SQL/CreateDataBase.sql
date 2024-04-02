@@ -26,7 +26,7 @@ CREATE TABLE Edition
 );
 CREATE TABLE Image
 (
-    ID          INT PRIMARY KEY,
+    Title          VARCHAR(255) PRIMARY KEY,
     Date_Taken  DATE NOT NULL,
     Reporter_id INT  NOT NULL
 );
@@ -68,7 +68,7 @@ CREATE TABLE Reporter
     Reporter_ID INT,
     Image_Title VARCHAR(255),
     PRIMARY KEY (Reporter_ID, Image_Title),
-    FOREIGN KEY (Reporter_ID) REFERENCES Reporter (Reporter_ID),
+    FOREIGN KEY (Reporter_ID) REFERENCES Journalist (CPR_NUMBER),
     FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 CREATE TABLE Writes
@@ -83,9 +83,9 @@ CREATE TABLE Writes
 CREATE TABLE ArticlePhotos
 (
     Article_id INT,
-    img_id     INT,
-    PRIMARY KEY (Article_id, img_id),
+    Image_Title     VARCHAR(255),
+    PRIMARY KEY (Article_id, Image_Title),
     FOREIGN KEY (Article_id) REFERENCES Article (ID),
-    FOREIGN KEY (img_id) REFERENCES Image (ID)
+    FOREIGN KEY (Image_Title) REFERENCES Image (Title)
 );
 

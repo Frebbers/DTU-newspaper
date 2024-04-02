@@ -12,6 +12,7 @@ public class Loader  {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
             Loader loader = new Loader();
+            loader.dbConnection = new DatabaseConnection();
             PhotosAndReportersLoader PRLoader = new PhotosAndReportersLoader();
             String relativePath = "src/main/resources/uploads.csv";
             System.out.println("loading from "+ relativePath);
@@ -26,7 +27,7 @@ public class Loader  {
             loader.insertValues(insertAdressStatements);
             loader.insertValues(journalistInsertStatements);
             loader.insertValues(imageInsertStatements);
-            loader.insertValues(reporterInsertStatements);
+            //loader.insertValues(reporterInsertStatements);
             
     } catch (IOException e) {
         e.printStackTrace();
