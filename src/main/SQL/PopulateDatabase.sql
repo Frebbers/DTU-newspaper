@@ -76,3 +76,5 @@ INSERT INTO ArticlePhotos(Article_id, Image_Title) VALUES
 (3, 'Picture 3'),
 (4, 'Picture 4'),
 (5, 'Picture 5');
+
+#CREATE VIEW ArticlePhotosView AS SELECT ArticlePhotos.Article_id, ArticlePhotos.Image_Title, Article.Title, Article.Topic FROM ArticlePhotos JOIN Article ON ArticlePhotos.Article_id = Article.ID;
