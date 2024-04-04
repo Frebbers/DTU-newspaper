@@ -54,13 +54,13 @@ INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (3, 3),
 (4, 4),
 (5, 5);
-/*
+
 INSERT INTO Reporter(Reporter_ID, Image_Title) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
+(1, 'Picture 1'),
+(2, 'Picture 2'),
+(3, 'Picture 3'),
+(4, 'Picture 4'),
+(5, 'Picture 5');
 
 INSERT INTO Writes(journalist_id, article_id, Role) VALUES
 (1, 1, 'Author'),
@@ -71,8 +71,8 @@ INSERT INTO Writes(journalist_id, article_id, Role) VALUES
 (5, 5, 'Author');
 
 INSERT INTO ArticlePhotos(Article_id, Image_Title) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
+(1, 'Picture 1'),
+(2, 'Picture 2'),
+(3, 'Picture 3'),
+(4, 'Picture 4'),
+(5, 'Picture 5');

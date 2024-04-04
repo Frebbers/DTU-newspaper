@@ -1,15 +1,17 @@
 Use dkavisen;
 
-SELECT a.Title AS Article_Title, MAX(a.View_Count) AS Views, a.Topic
+SELECT a.Topic,
+(SELECT a2.Title
+FROM Article a2
+WHERE a2.Topic = a.Topic
+ORDER BY a2.View_Count DESC
+LIMIT 1) AS Most_Read_Article,
+MAX(a.View_Count) AS Max_Views
 FROM Article a
-JOIN Writes w ON a.ID = w.article_id
-JOIN Journalist j ON w.journalist_id = j.CPR_NUMBER
-JOIN ArticlePhotos ap ON a.ID = ap.Article_id
-JOIN Image i ON ap.Image_Title = i.Title
-JOIN Reporter r ON j.CPR_NUMBER = r.Reporter_ID
-JOIN Edition e ON r.Image_Title = e.Edition_ID
-JOIN Newspaper n ON e.Newspaper_Title = n.Title
 GROUP BY a.Topic;
+
+
+
 
 
 SELECT j.First_name, j.Last_name, SUM(a.View_Count) as Total_Views
