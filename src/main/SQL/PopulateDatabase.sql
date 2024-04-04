@@ -47,14 +47,14 @@ INSERT INTO Article(Release_Date, Title, Topic, View_Count) VALUES
 ('2023-01-08', 'Article 3', 'Gossip', 300),
 ('2023-01-09', 'Article 4', 'Politics', 400),
 ('2023-01-10', 'Article 5', 'Business',500);
-/*
+
 INSERT INTO Editor(Editor_ID, Edition_ID) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
 (4, 4),
 (5, 5);
-
+/*
 INSERT INTO Reporter(Reporter_ID, Image_Title) VALUES
 (1, 1),
 (2, 2),
