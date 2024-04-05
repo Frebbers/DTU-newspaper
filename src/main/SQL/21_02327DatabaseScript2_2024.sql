@@ -1,4 +1,5 @@
 /*  the statements used to create and apply functions, procedures, triggers */
+
 USE dkavisen;
 DROP PROCEDURE IF EXISTS calculatePeriodicity;
 DROP FUNCTION IF EXISTS countJournalists;
