@@ -2,7 +2,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -33,15 +32,6 @@ public class DatabaseConnection {
     public void executeStatement (String data) {
         try {
             statement.executeUpdate(data);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void executeQuery (String data) {
-        try {
-            statement.executeQuery(data);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -96,38 +86,15 @@ public class DatabaseConnection {
         }
         return count;
     }
-    public boolean adressIdExists(int id){
-        //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
+    public boolean addressIdExists(int id){
         int count = returnCountQuery("SELECT COUNT(*) FROM Address WHERE address_id = " + id);
         return count > 0;
-
     }
-    public int idGenerator(String data){
-        int id = 0;
 
-
-        try {
-            // Call Zia's method to get the maximum address_id present in the table
-            ResultSet rs = statement.executeQuery(data);
-
-            // Retrieve the maximum address_id
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
-
-            // Increment the maximum address_id by 1 to generate a new id
-            id++;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(adressIdExists(id)){
-            id++;
-        }
-        return id;
-    }
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return connection.prepareStatement(sql);
     }
+
     public ResultSet executeQuery2(String data) {
         try {
             return statement.executeQuery(data);
@@ -135,17 +102,5 @@ public class DatabaseConnection {
             e.printStackTrace();
             return null;
         }
-    }
-
-
-
-
-
-
-    //Testing methods
-    public static void main (String[] args) {
-        DatabaseConnection db = new DatabaseConnection("test");
-        db.executeStatement("INSERT dkavisen.image VALUES (6, '2023-03-20', 6)");
-        db.closeConnection();
     }
 }

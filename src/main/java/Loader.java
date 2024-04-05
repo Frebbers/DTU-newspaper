@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Loader  {
-    PhotosAndReportersLoader loader;
     DatabaseConnection dbConnection;
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         try {
             Loader loader = new Loader();
@@ -31,15 +31,11 @@ public class Loader  {
             loader.journalistInsertBuilder(photosAndReporters);
             loader.imageInsertBuilder(photosAndReporters);
 
-
-            //loader.insertValues(journalistInsertStatements);
-           // loader.insertValues(imageInsertStatements);
-            //loader.insertValues(reporterInsertStatements);
+            loader.dbConnection.closeConnection();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
     private void insertValues(String[] insertStatements) {
         // Insert values into the database
@@ -83,8 +79,7 @@ public class Loader  {
         PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
         String[] insertStatements = new String[photosAndReporters.size()];
         int i = 0;
-        //int id = 0;
-        //id = addressIdGenerator();
+
         for(PhotoAndReporter photoAndReporter : photosAndReporters) {
 
             //INSERT photoAndReporter.getReporter() into the database
@@ -158,18 +153,12 @@ public class Loader  {
         int count = dbConnection.returnCountQuery2("SELECT COUNT(*) FROM Journalist WHERE CPR_NUMBER = ?", cpr);
         return count > 0;
     }
+
     public boolean addressExists(String streetName, String civicNumber, String city, String zipCode, String country){
-        //Call Zia's method with query: (SELECT COUNT(ID) FROM USERS WHERE ID = ?)
         int count = dbConnection.returnCountQuery("SELECT COUNT(*) FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND city = '" + city + "' AND zip_code = '" + zipCode + "' AND country = '"+country+"'");
         return count > 0;
     }
-/*
-    public int addressIdGenerator() {
-        int v;
-        v = dbConnection.idGenerator("SELECT COUNT(address_id) FROM Address");
-        return v;
-    }
-    */
+
     private boolean imageExists(String title, String date) {
         try {
             // Query to check if an image with the same title and date exists
