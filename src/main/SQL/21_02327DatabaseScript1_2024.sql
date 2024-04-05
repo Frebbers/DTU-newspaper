@@ -148,7 +148,7 @@ VALUES ('2023-01-06', 'Article 1', 'The Times', '2023-01-01', 'Crime', 100),
        ('2023-01-08', 'Article 3', 'Le Monde', '2023-01-03', 'Gossip', 300),
        ('2023-01-09', 'Article 4', 'La Repubblica', '2023-01-04', 'Politics', 400),
        ('2023-01-10', 'Article 5', 'Neue Zürcher Zeitung', '2023-01-05', 'Business', 500);
--- Populating the Reporter table
+
 INSERT INTO Reporter(Reporter_ID, Image_Title)
 VALUES
     (1, 'Picture 1'),
