@@ -11,18 +11,16 @@ FROM Article a
 GROUP BY a.Topic;
 
 
-
-
-
 SELECT j.First_name, j.Last_name, SUM(a.View_Count) AS Total_Views
 FROM Journalist j
-         JOIN Writes w ON j.CPR_NUMBER = w.journalist_CPR
-         JOIN Article a ON w.article_title = a.Title
-    AND w.edition_title = a.Edition_Title
-    AND w.edition_release_date = a.Edition_Release_date
+JOIN Writes w ON j.CPR_NUMBER = w.journalist_CPR
+JOIN Article a ON w.article_title = a.Title
+AND w.edition_title = a.Edition_Title
+AND w.edition_release_date = a.Edition_Release_date
 GROUP BY j.CPR_NUMBER
 ORDER BY Total_Views DESC
 LIMIT 10;
+
 
 SELECT j.First_name, j.Last_name
 FROM journalist j
@@ -36,7 +34,6 @@ SELECT a.Topic, AVG(a.View_Count) AS Avg_Reads
 FROM Article a
 GROUP BY a.Topic
 HAVING AVG(a.View_Count) < (SELECT AVG(View_Count) FROM Article);
-
 
 
 SELECT DISTINCT j.First_name, j.Last_name
