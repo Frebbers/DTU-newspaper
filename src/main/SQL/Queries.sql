@@ -1,4 +1,4 @@
-Use dkavisen;
+Use DKavisen;
 
 SELECT a.Topic,
 (SELECT a2.Title
@@ -14,14 +14,15 @@ GROUP BY a.Topic;
 
 
 
-SELECT j.First_name, j.Last_name, SUM(a.View_Count) as Total_Views
+SELECT j.First_name, j.Last_name, SUM(a.View_Count) AS Total_Views
 FROM Journalist j
-JOIN Writes w ON j.CPR_NUMBER = w.journalist_id
-JOIN Article a ON w.article_id = a.ID
+         JOIN Writes w ON j.CPR_NUMBER = w.journalist_CPR
+         JOIN Article a ON w.article_title = a.Title
+    AND w.edition_title = a.Edition_Title
+    AND w.edition_release_date = a.Edition_Release_date
 GROUP BY j.CPR_NUMBER
 ORDER BY Total_Views DESC
 LIMIT 10;
-
 
 SELECT j.First_name, j.Last_name
 FROM journalist j
@@ -40,8 +41,12 @@ HAVING AVG(a.View_Count) < (SELECT AVG(View_Count) FROM Article);
 
 SELECT DISTINCT j.First_name, j.Last_name
 FROM Journalist j
-JOIN Writes w ON j.CPR_NUMBER = w.journalist_id
-JOIN Article a ON w.article_id = a.ID
-JOIN ArticlePhotos ap ON a.ID = ap.Article_id
-JOIN Image i ON ap.Image_Title = i.Title
-JOIN Reporter r ON j.CPR_NUMBER = r.Reporter_ID;
+         JOIN Writes w ON j.CPR_NUMBER = w.journalist_CPR
+         JOIN Article a ON w.article_title = a.Title
+    AND w.edition_title = a.Edition_Title
+    AND w.edition_release_date = a.Edition_Release_date
+         JOIN ArticlePhotos ap ON a.Title = ap.Article_Title
+    AND a.Edition_Title = ap.Edition_Title
+    AND a.Edition_Release_date = ap.Edition_Release_date
+         JOIN Image i ON ap.Image_Title = i.Title
+         JOIN Reporter r ON j.CPR_NUMBER = r.Reporter_ID;

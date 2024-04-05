@@ -147,7 +147,29 @@ VALUES ('2023-01-06', 'Article 1', 'The Times', '2023-01-01', 'Crime', 100),
        ('2023-01-07', 'Article 2', 'The New York Times', '2023-01-02', 'Crime', 200),
        ('2023-01-08', 'Article 3', 'Le Monde', '2023-01-03', 'Gossip', 300),
        ('2023-01-09', 'Article 4', 'La Repubblica', '2023-01-04', 'Politics', 400),
-       ('2023-01-10', 'Article 5', 'Neue Zürcher Zeitung', '2023-01-05', 'Business', 500);
+       ('2023-01-10', 'Article 5', 'Neue Zürcher Zeitung', '2023-01-05', 'Business', 500),
+       ('2023-01-11', 'Article 6', 'The Times', '2023-01-06', 'Technology', 150),
+       ('2023-01-12', 'Article 7', 'The New York Times', '2023-01-07', 'Science', 250),
+       ('2023-01-13', 'Article 8', 'Le Monde', '2023-01-08', 'Environment', 350),
+       ('2023-01-14', 'Article 9', 'La Repubblica', '2023-01-09', 'Health', 450),
+       ('2023-01-15', 'Article 10', 'Neue Zürcher Zeitung', '2023-01-10', 'Culture', 550);
+INSERT INTO Editor(Editor_ID, Edition_Newspaper_Title, Edition_Release_date)
+VALUES
+    (1, 'The Times', '2023-01-01'),
+    (2, 'The New York Times', '2023-01-02'),
+    (3, 'Le Monde', '2023-01-03'),
+    (4, 'La Repubblica', '2023-01-04'),
+    (5, 'Neue Zürcher Zeitung', '2023-01-05');
+
+-- Populating the Reporter table
+INSERT INTO Reporter(Reporter_ID, Image_Title)
+VALUES
+    (1, 'Picture 1'),
+    (2, 'Picture 2'),
+    (3, 'Picture 3'),
+    (4, 'Picture 4'),
+    (5, 'Picture 5');
+
 INSERT INTO Writes(Journalist_CPR, Article_Title, Edition_Title, Edition_Release_date, Role)
 VALUES
     (1, 'Article 1', 'The Times', '2023-01-01', 'Author'),
