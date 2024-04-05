@@ -119,13 +119,6 @@ VALUES ('The Times', '2023-01-01'),
        ('La Repubblica', '2023-01-04'),
        ('Neue Zürcher Zeitung', '2023-01-05');
 
-INSERT INTO Image(Title, Date_Taken, Reporter_id)
-VALUES ('Picture 1', '2023-01-01', 12345678),
-       ('Picture 2', '2023-01-02', 23456789),
-       ('Picture 3', '2023-01-03', 34567890),
-       ('Picture 4', '2023-01-04', 45678901),
-       ('Picture 5', '2023-01-05', 56789012);
-
 INSERT INTO Journalist(CPR_NUMBER, First_name, Last_name, Email_address, Address_ID)
 VALUES (12345678, 'John', 'Doe', 'john.doe@example.com', 1),
        (23456789, 'Jane', 'Doe', 'jane.doe@example.com', 2),
@@ -173,11 +166,11 @@ VALUES
 
 INSERT INTO ArticlePhotos(Article_Title, Edition_Title, Edition_Release_date, Image_Title)
 VALUES
-    ('Brexit Impact on London Economy', 'The Times', '2023-01-01', 'Picture 1'),
-    ('New York City Housing Crisis', 'The New York Times', '2023-01-02', 'Picture 2'),
-    ('French Presidential Election', 'Le Monde', '2023-01-03', 'Picture 3'),
-    ('Italian Cuisine: More Than Just Pizza', 'La Repubblica', '2023-01-04', 'Picture 4'),
-    ('Swiss Banking Secrecy', 'Neue Zürcher Zeitung', '2023-01-05', 'Picture 5');
+    ('Brexit Impact on London Economy', 'The Times', '2023-01-01', 'Protest in London'),
+    ('New York City Housing Crisis', 'The New York Times', '2023-01-02', 'New York City Skyline'),
+    ('French Presidential Election', 'Le Monde', '2023-01-03', 'Eiffel Tower at Night'),
+    ('Italian Cuisine: More Than Just Pizza', 'La Repubblica', '2023-01-04', 'Colosseum in Rome'),
+    ('Swiss Banking Secrecy', 'Neue Zürcher Zeitung', '2023-01-05', 'Swiss Alps');
 
 INSERT INTO Editor(Editor_ID, Edition_Newspaper_Title, Edition_Release_date)
 VALUES
