@@ -29,7 +29,7 @@ CREATE TABLE Image
 (
     Title       VARCHAR(255) PRIMARY KEY,
     Date_Taken  DATE NOT NULL,
-    Reporter_id INT  NOT NULL
+    Reporter_id INT
 );
 
 CREATE TABLE Journalist
