@@ -2,6 +2,7 @@ USE dkavisen;
 DROP PROCEDURE IF EXISTS calculatePeriodicity;
 DROP FUNCTION IF EXISTS countJournalists;
 DROP TRIGGER IF EXISTS triggerCalculatePeriodicity;
+DROP TRIGGER IF EXISTS Image_Before_Delete;
 DELIMITER //
 
 CREATE PROCEDURE calculatePeriodicity(IN vTitle varchar(255))
@@ -24,6 +25,12 @@ BEGIN
     CALL calculatePeriodicity(latestEdition);
 END //
 
+CREATE TRIGGER Image_After_Delete
+AFTER DELETE ON dkavisen.reporter FOR EACH ROW
+BEGIN
+    UPDATE dkavisen.image SET Reporter_id = null WHERE Reporter_id = OLD.Reporter_ID;
+END //
+
 CREATE FUNCTION countJournalists() RETURNS INT
 BEGIN
     DECLARE vJourns INT;
@@ -32,25 +39,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
-
-/*
-INSERT, UPDATE and DELETE Statements
-*/
-
-INSERT INTO Article (Release_Date, Title, Topic, View_Count)
-VALUES ('2024-04-05', 'Spring Festival', 'Culture', 0);
-
-UPDATE Article
-SET View_Count = View_Count + 20
-WHERE Title = 'Article 1';
-
-
-SELECT * FROM editor WHERE Editor_ID = (SELECT CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-DELETE FROM editor WHERE  Editor_ID = (SELECT CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-SELECT * FROM journalistphonenumbers WHERE CPR_NUMBER = (SELECT  CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-DELETE FROM journalistphonenumbers WHERE CPR_NUMBER = (SELECT  CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-DELETE FROM reporter WHERE Reporter_id = (SELECT CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-DELETE FROM writes WHERE journalist_id = (SELECT CPR_NUMBER FROM journalist WHERE First_name = 'Jack' AND Last_name = 'Brown');
-DELETE FROM Journalist
-WHERE First_name = 'Jack' AND Last_name = 'Brown';
