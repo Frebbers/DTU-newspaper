@@ -86,10 +86,6 @@ public class DatabaseConnection {
         }
         return count;
     }
-    public boolean addressIdExists(int id){
-        int count = returnCountQuery("SELECT COUNT(*) FROM Address WHERE address_id = " + id);
-        return count > 0;
-    }
 
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return connection.prepareStatement(sql);
