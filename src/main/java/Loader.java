@@ -180,7 +180,7 @@ public class Loader  {
 
     private int getAddressId(String streetName, String civicNumber, String zipCode) throws SQLException {
         String sql = "SELECT address_id FROM Address WHERE street_name = '" + streetName + "' AND civic_number = '" + civicNumber + "' AND zip_code = '" + zipCode + "'";
-        ResultSet rs = dbConnection.executeQuery2(sql);
+        ResultSet rs = dbConnection.executeQuery(sql);
         if (rs.next()) {
             return rs.getInt("address_id");
         }

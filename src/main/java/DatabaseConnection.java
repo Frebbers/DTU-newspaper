@@ -95,7 +95,7 @@ public class DatabaseConnection {
         return connection.prepareStatement(sql);
     }
 
-    public ResultSet executeQuery2(String data) {
+    public ResultSet executeQuery(String data) {
         try {
             return statement.executeQuery(data);
         } catch (Exception e) {
