@@ -205,3 +205,17 @@ FROM
     Article
 GROUP BY
     Topic;
+#Database instance
+SELECT * FROM Address;
+SELECT * FROM Newspaper;
+SELECT * FROM Edition;
+SELECT * FROM Image;
+SELECT * FROM Journalist;
+SELECT * FROM JournalistPhoneNumbers;
+SELECT * FROM Article;
+SELECT * FROM Editor;
+SELECT * FROM Reporter;
+SELECT * FROM Writes;
+SELECT * FROM ArticlePhotos;
+SELECT * FROM WritesWithJournalistFullName;
+SELECT * FROM ArticlesPerTopic;
