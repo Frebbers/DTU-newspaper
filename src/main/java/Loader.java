@@ -30,7 +30,6 @@ public class Loader  {
             //Insert journalists into the database
             loader.journalistInsertBuilder(photosAndReporters);
             loader.imageInsertBuilder(photosAndReporters);
-            String[] reporterInsertStatements = loader.insertReporterImagesBuilder(photosAndReporters);
 
 
             //loader.insertValues(journalistInsertStatements);
@@ -154,21 +153,6 @@ public class Loader  {
             i++;
         }
     }
-
-    public String[] insertReporterImagesBuilder(List<PhotoAndReporter> photosAndReporters) {
-        String[] insertStatements = new String[photosAndReporters.size()];
-        int i = 0;
-        for (PhotoAndReporter photoAndReporter : photosAndReporters) {
-            String[] reporterInfo = photoAndReporter.getReporter().toString().split(";");
-            int reporterId = Integer.parseInt(reporterInfo[0]);
-            String imageTitle = photoAndReporter.getPhoto().getTitle(); // Assuming Photo has a getTitle method
-
-            insertStatements[i] = "INSERT INTO Reporter (Reporter_ID, Image_Title) VALUES (" + reporterId + ", '" + imageTitle + "')";
-            i++;
-        }
-        return insertStatements;
-    }
-
 
     public boolean reporterExists(int cpr) {
         int count = dbConnection.returnCountQuery2("SELECT COUNT(*) FROM Journalist WHERE CPR_NUMBER = ?", cpr);
